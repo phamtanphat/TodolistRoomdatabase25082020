@@ -21,13 +21,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class WordViewModel extends ViewModel {
+public class WordViewModel extends AndroidViewModel {
     private MutableLiveData<List<WordEntity>> mListWords;
     private WordRepository mWordRepository = null;
 
-    public WordViewModel(Context context) {
+    public WordViewModel(@NonNull Application application) {
+        super(application);
         mListWords = new MutableLiveData<>();
-        mWordRepository = WordRepository.getInstance(context);
+        mWordRepository = WordRepository.getInstance(application.getBaseContext());
     }
 
 
