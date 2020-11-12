@@ -28,4 +28,7 @@ public class WordRepository {
     public Maybe<List<WordEntity>> getWords(){
         return mWordDao.getWords();
     }
+    public Maybe<Long> insertWord(WordEntity wordEntity){
+        return mWordDao.insertWord(wordEntity);
+    }
 }

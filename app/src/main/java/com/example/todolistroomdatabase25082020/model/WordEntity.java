@@ -23,8 +23,7 @@ public class WordEntity{
     @ColumnInfo(name = "isMemorized" , typeAffinity = ColumnInfo.INTEGER)
     private Integer isMemorized;
 
-    public WordEntity(long id, String en, String vn, Integer isMemorized) {
-        this.id = id;
+    public WordEntity(String en, String vn, Integer isMemorized) {
         this.en = en;
         this.vn = vn;
         this.isMemorized = isMemorized;

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.todolistroomdatabase25082020.R;
 import com.example.todolistroomdatabase25082020.model.WordEntity;
@@ -22,13 +23,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mWordViewModel = new WordViewModel(getApplication());
 
-        mWordViewModel.getWords().observe(this, new Observer<List<WordEntity>>() {
+//        mWordViewModel.getWords().observe(this, new Observer<List<WordEntity>>() {
+//            @Override
+//            public void onChanged(List<WordEntity> wordEntities) {
+//                Log.d("BBB",wordEntities.size() + "");
+//            }
+//        });
+//
+//        mWordViewModel.callDataWords();
+        mWordViewModel.getIdInsertSuccess().observe(this, new Observer<Long>() {
             @Override
-            public void onChanged(List<WordEntity> wordEntities) {
-                Log.d("BBB",wordEntities.size() + "");
+            public void onChanged(Long aLong) {
+                Toast.makeText(MainActivity.this, aLong + "", Toast.LENGTH_SHORT).show();
             }
         });
 
-        mWordViewModel.callDataWords();
+        mWordViewModel.insertWord(new WordEntity("One","Một",0));
     }
 }
