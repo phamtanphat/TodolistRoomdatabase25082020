@@ -3,6 +3,7 @@ package com.example.todolistroomdatabase25082020.model;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface WordDao {
 
     @Insert
     Maybe<Long> insertWord(WordEntity wordEntity);
+
+    @Update
+    Maybe<Integer> updateWord(WordEntity wordEntity);
 }

@@ -31,4 +31,7 @@ public class WordRepository {
     public Maybe<Long> insertWord(WordEntity wordEntity){
         return mWordDao.insertWord(wordEntity);
     }
+    public Maybe<Integer> updateWord(WordEntity wordEntity){
+        return mWordDao.updateWord(wordEntity);
+    }
 }

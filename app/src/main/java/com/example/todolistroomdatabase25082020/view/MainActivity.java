@@ -23,21 +23,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mWordViewModel = new WordViewModel(getApplication());
 
-//        mWordViewModel.getWords().observe(this, new Observer<List<WordEntity>>() {
-//            @Override
-//            public void onChanged(List<WordEntity> wordEntities) {
-//                Log.d("BBB",wordEntities.size() + "");
-//            }
-//        });
-//
-//        mWordViewModel.callDataWords();
-        mWordViewModel.getIdInsertSuccess().observe(this, new Observer<Long>() {
+        mWordViewModel.getWords().observe(this, new Observer<List<WordEntity>>() {
             @Override
-            public void onChanged(Long aLong) {
-                Toast.makeText(MainActivity.this, aLong + "", Toast.LENGTH_SHORT).show();
+            public void onChanged(List<WordEntity> wordEntities) {
+                WordEntity wordEntity = wordEntities.get(0);
+                wordEntity.setIsMemorized(1);
+                mWordViewModel.updateWord(wordEntity);
             }
         });
 
-        mWordViewModel.insertWord(new WordEntity("One","Một",0));
+        mWordViewModel.callDataWords();
+//        mWordViewModel.getIdInsertSuccess().observe(this, new Observer<Long>() {
+//            @Override
+//            public void onChanged(Long aLong) {
+//                Toast.makeText(MainActivity.this, aLong + "", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        mWordViewModel.insertWord(new WordEntity("One","Một",0));
+
+        mWordViewModel.getIdUpdateSuccess().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                Toast.makeText(MainActivity.this, integer + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 }

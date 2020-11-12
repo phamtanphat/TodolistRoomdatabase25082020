@@ -20,12 +20,14 @@ import io.reactivex.schedulers.Schedulers;
 public class WordViewModel extends AndroidViewModel {
     private MutableLiveData<List<WordEntity>> mListWords;
     private MutableLiveData<Long> mIdInsertSuccess;
+    private MutableLiveData<Integer> mIdUpdateSuccess;
     private WordRepository mWordRepository = null;
 
     public WordViewModel(@NonNull Application application) {
         super(application);
         mListWords = new MutableLiveData<>();
         mIdInsertSuccess = new MutableLiveData<>();
+        mIdUpdateSuccess = new MutableLiveData<>();
         mWordRepository = WordRepository.getInstance(application.getBaseContext());
     }
 
@@ -89,6 +91,35 @@ public class WordViewModel extends AndroidViewModel {
     }
     public LiveData<Long> getIdInsertSuccess(){
         return mIdInsertSuccess;
+    }
+    public void updateWord(WordEntity wordEntity){
+        mWordRepository.updateWord(wordEntity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MaybeObserver<Integer>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(Integer integer) {
+                        mIdUpdateSuccess.setValue(integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+    public LiveData<Integer> getIdUpdateSuccess(){
+        return mIdUpdateSuccess;
     }
 
 }
