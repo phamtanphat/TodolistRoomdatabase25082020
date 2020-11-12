@@ -27,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<WordEntity> wordEntities) {
                 WordEntity wordEntity = wordEntities.get(0);
-                wordEntity.setIsMemorized(1);
-                mWordViewModel.updateWord(wordEntity);
+                mWordViewModel.deleteWord(wordEntity);
             }
         });
 
@@ -42,10 +41,20 @@ public class MainActivity extends AppCompatActivity {
 //
 //        mWordViewModel.insertWord(new WordEntity("One","Một",0));
 
-        mWordViewModel.getIdUpdateSuccess().observe(this, new Observer<Integer>() {
+//        mWordViewModel.getIdUpdateSuccess().observe(this, new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer integer) {
+//                Toast.makeText(MainActivity.this, integer + "", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+        mWordViewModel.getDeleteSuccess().observe(this, new Observer<Boolean>() {
             @Override
-            public void onChanged(Integer integer) {
-                Toast.makeText(MainActivity.this, integer + "", Toast.LENGTH_SHORT).show();
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+                    Toast.makeText(MainActivity.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(MainActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

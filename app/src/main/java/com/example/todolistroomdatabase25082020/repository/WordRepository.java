@@ -34,4 +34,7 @@ public class WordRepository {
     public Maybe<Integer> updateWord(WordEntity wordEntity){
         return mWordDao.updateWord(wordEntity);
     }
+    public Maybe<Void> deleteWord(WordEntity wordEntity){
+        return mWordDao.deleteWord(wordEntity);
+    }
 }

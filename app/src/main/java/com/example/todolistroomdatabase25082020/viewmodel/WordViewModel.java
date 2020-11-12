@@ -1,6 +1,7 @@
 package com.example.todolistroomdatabase25082020.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -21,6 +22,7 @@ public class WordViewModel extends AndroidViewModel {
     private MutableLiveData<List<WordEntity>> mListWords;
     private MutableLiveData<Long> mIdInsertSuccess;
     private MutableLiveData<Integer> mIdUpdateSuccess;
+    private MutableLiveData<Boolean> mDeleteSuccess;
     private WordRepository mWordRepository = null;
 
     public WordViewModel(@NonNull Application application) {
@@ -28,6 +30,7 @@ public class WordViewModel extends AndroidViewModel {
         mListWords = new MutableLiveData<>();
         mIdInsertSuccess = new MutableLiveData<>();
         mIdUpdateSuccess = new MutableLiveData<>();
+        mDeleteSuccess = new MutableLiveData<>();
         mWordRepository = WordRepository.getInstance(application.getBaseContext());
     }
 
@@ -121,5 +124,33 @@ public class WordViewModel extends AndroidViewModel {
     public LiveData<Integer> getIdUpdateSuccess(){
         return mIdUpdateSuccess;
     }
+    public void deleteWord(WordEntity wordEntity){
+        mWordRepository.deleteWord(wordEntity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MaybeObserver<Void>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mDeleteSuccess.setValue(false);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mDeleteSuccess.setValue(true);
+                    }
+                });
+    }
+    public LiveData<Boolean> getDeleteSuccess(){
+        return mDeleteSuccess;
+    }
 }
